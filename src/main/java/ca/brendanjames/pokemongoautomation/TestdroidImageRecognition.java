@@ -1,3 +1,5 @@
+package ca.brendanjames.pokemongoautomation;
+
 import io.appium.java_client.TouchAction;
 import org.opencv.core.Point;
 import org.openqa.selenium.By;
