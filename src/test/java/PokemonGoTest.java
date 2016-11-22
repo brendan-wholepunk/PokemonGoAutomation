@@ -4,49 +4,58 @@
  * and open the template in the editor.
  */
 
-import java.net.URL;
+import ca.brendanjames.pokemongoautomation.AkazeImageFinder;
+import ca.brendanjames.pokemongoautomation.TestdroidImageRecognition;
 
-import io.appium.java_client.android.AndroidDriver;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author brendancrawford
  */
-public class PokemonGoTest {
+public class PokemonGoTest extends TestdroidImageRecognition {
     
-    protected AndroidDriver driver;
+    public PokemonGoTest() throws Exception {
+        super();
+        logger = LoggerFactory.getLogger(PokemonGoTest.class);
+    }
     
-    @Before
+    @BeforeClass
     public void setUp() throws Exception {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
         
-        capabilities.setCapability("appPackage", "com.nianticlabs.pokemongo");
-        capabilities.setCapability("launchActivity","com.unity3d.player.UnityPlayerActivity");
-        capabilities.setCapability("platformName","Android");
-        capabilities.setCapability("platformVersion","5.0.1");
-        capabilities.setCapability("deviceName","0ed66d20");
+        AkazeImageFinder.setupOpenCVEnv();
+        driver = getAndroidDriver();
         
-        driver =  new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     }
     
-    @After
+    @AfterClass
     public void tearDown() throws Exception {
-        driver.quit();
+        if (driver != null) {
+            log("Quitting Appium driver at tearDown");
+            driver.quit();
+        } else {
+            log("driver was null at tearDown");
+        }
     }
     
     @Test
-    public void testHelloWorld(){
-        WebElement el = driver.findElementByXPath("//android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]");
-        assertNotNull(el);
+    public void testHelloWorld() throws Exception{
+        log("Image Recognition sample script started.");
+        takeScreenshot("Before hideKeyboard");
+        try {
+          driver.hideKeyboard();
+        } catch (Exception e) {
+          log("Keyboard not present; going forward.");
+        }
+
+        findImageOnScreen("bitbar_logo");
+        log("Success.");
     }
 }
