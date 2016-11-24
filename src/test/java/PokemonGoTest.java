@@ -27,7 +27,7 @@ public class PokemonGoTest extends TestdroidImageRecognition {
     }
     
     @BeforeClass
-    public void setUp() throws Exception {
+    public static void setUp() throws Exception {
         
         AkazeImageFinder.setupOpenCVEnv();
         driver = getAndroidDriver();
@@ -36,7 +36,7 @@ public class PokemonGoTest extends TestdroidImageRecognition {
     }
     
     @AfterClass
-    public void tearDown() throws Exception {
+    public static void tearDown() throws Exception {
         if (driver != null) {
             log("Quitting Appium driver at tearDown");
             driver.quit();
@@ -55,7 +55,7 @@ public class PokemonGoTest extends TestdroidImageRecognition {
           log("Keyboard not present; going forward.");
         }
 
-        findImageOnScreen("bitbar_logo");
+        findImageOnScreen("niantic_logo");
         log("Success.");
     }
 }
