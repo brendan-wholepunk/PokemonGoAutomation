@@ -62,7 +62,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         Point[] imgRectScaled;
 
         // queryImageFolder is "", unless set by setQueryImageFolder()
-        String queryImageFile = "queryimages/" + queryimageFolder + image;
+        String queryImageFile = "src/main/java/ca/brendanjames/pokemongoautomation/resources/queryimages/" + queryimageFolder + image;
         log("Searching for " + queryImageFile);
         log("Searching in " + searchedImage);
         try {
@@ -819,7 +819,7 @@ public class TestdroidImageRecognition extends AbstractAppiumTest {
         if (platformName.equalsIgnoreCase("iOS")) {
             return driver.manage().window().getSize();
         } else {
-            String adb = "adb";
+            String adb = "/usr/local/bin/adb";
             String[] adbCommand = {adb, "shell", "dumpsys", "window"};
             try {
                 ProcessBuilder p = new ProcessBuilder(adbCommand);

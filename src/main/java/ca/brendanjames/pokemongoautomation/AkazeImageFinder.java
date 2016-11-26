@@ -322,11 +322,11 @@ public class AkazeImageFinder {
         String platformName = System.getProperty("os.name");
         String akazePath = "";
         if (platformName.toLowerCase().contains("mac")) {
-            akazePath = "lib/mac/akaze/akaze_match";
+            akazePath = "src/main/java/ca/brendanjames/lib/mac/akaze/akaze_match";
         } else if (platformName.toLowerCase().contains("win")) {
-            akazePath = "lib/win/akaze/akaze_match";
+            akazePath = "src/main/java/ca/brendanjames/lib/win/akaze/akaze_match";
         } else {
-            akazePath = "lib/linux/akaze/akaze_match";
+            akazePath = "src/main/java/ca/brendanjames/lib/linux/akaze/akaze_match";
         }
         String[] akazeMatchCommand = {akazePath, object_filename, scene_filename, "--json", jsonFilename, "--dthreshold", "0.00000000001"};
 

@@ -41,8 +41,8 @@ public abstract class AbstractAppiumTest {
 
     public static String screenshotsFolder = "";
     public static String appFile = System.getenv("APP_FILE");
-    public static String platformName = System.getenv("PLATFORM_NAME");
-    public static String automationName = System.getenv("AUTOMATION_NAME");
+    public static String platformName = "Android";
+    public static String automationName = "Appium";
     public static String deviceName = System.getenv("DEVICE_NAME");
     public static String udid = System.getenv("UDID");
     public static String platformVersion = System.getenv("PLATFORM_VERSION");
@@ -99,6 +99,7 @@ public abstract class AbstractAppiumTest {
     }
 
     public static AppiumDriver getAndroidDriver() throws Exception {
+        /*
         if (appFile == null) {
             appFile = "application.apk";
         }
@@ -111,10 +112,12 @@ public abstract class AbstractAppiumTest {
         if (automationName == null){
         	automationName = "appium";
         }
+        */
         screenshotsFolder = "target/reports/screenshots/android/";
         File dir = new File(screenshotsFolder);
         dir.mkdirs();
 
+        /*
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("automationName", automationName);
         capabilities.setCapability("platformName", platformName);
@@ -126,6 +129,15 @@ public abstract class AbstractAppiumTest {
 
         capabilities.setCapability("app", System.getProperty("user.dir") + File.separator + appFile);
         capabilities.setCapability("newCommandTimeout", 120);
+        */
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("automationName", "Appium");
+        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("deviceName", "0ed66d20");
+        capabilities.setCapability("platformVersion", "5.0.1");
+        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("package", "com.nianticlabs.pokemongo");
+        capabilities.setCapability("launchActivity", "com.unity3d.player.UnityPlayerActivity");
 
         log("Creating Appium session, this may take couple minutes..");
         driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), capabilities);
