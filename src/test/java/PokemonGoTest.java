@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.opencv.core.Point;
 
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +56,16 @@ public class PokemonGoTest extends TestdroidImageRecognition {
           log("Keyboard not present; going forward.");
         }
 
-        findImageOnScreen("niantic_logo");
+        // Wait for loading screens
+        
+        this.waitForImageToDisappearFromScreen("niantic_logo");
+        
+        this.waitForImageToDisappearFromScreen("gengar_loading");
+        
+        // Dismiss the safety alert
+        this.tapImageOnScreen("ok_button");
+        
+        // Yay!
         log("Success.");
     }
 }

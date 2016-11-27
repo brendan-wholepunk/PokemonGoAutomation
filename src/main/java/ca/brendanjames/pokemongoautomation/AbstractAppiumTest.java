@@ -138,11 +138,12 @@ public abstract class AbstractAppiumTest {
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("package", "com.nianticlabs.pokemongo");
         capabilities.setCapability("launchActivity", "com.unity3d.player.UnityPlayerActivity");
+        capabilities.setCapability("noReset", true);
 
         log("Creating Appium session, this may take couple minutes..");
         driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(defaultWaitTime, TimeUnit.SECONDS);
-        driver.resetApp();
+        // driver.resetApp();
         return driver;
     }
 
